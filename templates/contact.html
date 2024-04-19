@@ -4,11 +4,11 @@
 <title>Contact</title>
 
 <style>
-
-a 
-{
-  text-decoration:none;
+/* CSS styles */
+a {
+  text-decoration: none;
 }
+
 /* Chat container */
 .chat-container {
   position: fixed;
@@ -25,7 +25,7 @@ a
 }
 
 /* Bot message */
-.message.bot-message {
+.message.bot-pop {
   background-color: #d3e0ff;
   padding: 8px;
   margin-bottom: 8px;
@@ -41,26 +41,42 @@ a
   text-align: right;
 }
 
-/* Input form */
-form {
-  position: fixed;
-  bottom: 0;
-  right: 20px;
-  width: 300px;
-  display: flex;
-  align-items: center;
-  background-color: #f9f9f9;
-  padding: 10px;
-  border-radius: 10px 10px 0 0;
-  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+/* CSS for form with class "form" */
+.form {
+  max-width: 400px;
+  margin: 0 auto;
 }
 
-input[type="text"] {
-  flex: 1;
+.form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form input[type="text"],
+.form input[type="email"],
+.form textarea {
+  width: 100%;
   padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+.form input[type="submit"] {
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
+
+.form input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
 
 button[type="submit"] {
   padding: 8px 16px;
@@ -82,7 +98,6 @@ button[type="submit"]:hover {
   right: 10px;
   cursor: pointer;
 }
-
 </style>
 
 </head>
@@ -90,7 +105,6 @@ button[type="submit"]:hover {
 <body>
 
 <table style="width:100%">
-
 <tr>
 <td colspan="2"><img src="../static/images/logo.png"></td>
 <td colspan="2">
@@ -107,9 +121,7 @@ Office@medicare.com
 <p><b>27th Avenue</b></p>
 <p>New York, W2 3XE</p>
 </td>
-
 </tr>
-
 
 <tr style="background:#0cb8b6;">
   <td align="center" style="padding:10px;"><a href="/" style="color:#fff;">Home</a></td>
@@ -122,7 +134,6 @@ Office@medicare.com
   <td align="center" style="padding:10px;"><a href="/login" style="color:#fff;">Log in/Sign in</a></td>
 </tr>
 
-
 <tr>
 <td colspan="8"><img src="../static/images/banner.avif" style="width:100%;"></td>
 </tr>
@@ -131,7 +142,7 @@ Office@medicare.com
 <td colspan='8' style="padding:20px;">
 <h1>Contact Us</h1>
 
-<form>
+<form class="form">
 <label>Name</label><br/>
 <input type="text"><br/>
 
@@ -151,54 +162,50 @@ Office@medicare.com
 </td>
 </tr>
 
-
 <tr style="background:#0cb8b6;">
 <td colspan="8" align="center" style="padding:10px;">
 <p style="color:#fff;">Copyright 2022. All Rights Reserved</p>
 </td>
 </tr>
-
 </table>
+
+<!-- Chat container -->
 <div class="chat-container" id="chat-container">
   <span class="close-icon" onclick="toggleChat()">&#10006;</span> <!-- Cross symbol -->
-  {% for message in response.messages %}
-      {% if message.author != '0' %}
-          <div class="message bot-message">
-              <p>bot: {{ message.content|replace('*', '') }}</p>
-          </div>
-      {% endif %}
-  {% endfor %}
-  <div class="message user-message" align="right">
-      <p>Your message: {{ message }}</p>
+  <!-- Messages -->
+  <div class="message bot-pop">
+      <p>bot: Welcome to our health assistant!</p>
   </div>
 
+  <!-- User input form -->
   <form action="/" method="POST">
     <input type="text" id="message" name="message" placeholder="Type your message here...">
     <button type="submit">Send</button>
   </form>
 </div>
+
 <script>
-  // Check if chat container is open or closed in local storage
-  document.addEventListener("DOMContentLoaded", function() {
-    var chatContainer = document.getElementById('chat-container');
-    var isChatOpen = localStorage.getItem('isChatOpen');
-    if (isChatOpen === 'true') {
-      chatContainer.style.display = 'block';
-    }
-  });
-  
-  function toggleChat() {
-    var chatContainer = document.getElementById('chat-container');
-    var isChatOpen = localStorage.getItem('isChatOpen');
-    if (isChatOpen === 'true') {
-      chatContainer.style.display = 'none';
-      localStorage.setItem('isChatOpen', 'false');
-    } else {
-      chatContainer.style.display = 'block';
-      localStorage.setItem('isChatOpen', 'true');
-    }
+// Check if chat container is open or closed in local storage
+document.addEventListener("DOMContentLoaded", function() {
+  var chatContainer = document.getElementById('chat-container');
+  var isChatOpen = localStorage.getItem('isChatOpen');
+  if (isChatOpen === 'true') {
+    chatContainer.style.display = 'block';
   }
-  </script>
+});
+
+function toggleChat() {
+  var chatContainer = document.getElementById('chat-container');
+  var isChatOpen = localStorage.getItem('isChatOpen');
+  if (isChatOpen === 'true') {
+    chatContainer.style.display = 'none';
+    localStorage.setItem('isChatOpen', 'false');
+  } else {
+    chatContainer.style.display = 'block';
+    localStorage.setItem('isChatOpen', 'true');
+  }
+}
+</script>
   
 </body>
 </html>
